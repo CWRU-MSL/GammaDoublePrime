@@ -35,12 +35,12 @@ img_path='img/718 images/111-Results-2/'
 res_path='img/718 images/111-Results-2/Gamma_prime_size/'
 
 for n in range (1,15):
-    int_gamma_prime= io.imread(img_path + `n` + '/DGP.png',as_grey=True)
+    int_gamma_prime= io.imread(img_path + n + '/DGP.png',as_grey=True)
     crop_gamma_prime= int_gamma_prime[170:1277, 433:1539]
     gamma_prime = cv2.resize(crop_gamma_prime,(1384,1384))
     
 
-    int_double_prime= io.imread(img_path + `n` + '/GDP.png',as_grey=True)
+    int_double_prime= io.imread(img_path + n + '/GDP.png',as_grey=True)
     crop_double_prime= int_double_prime[170:1280, 433:1550]
     double_prime = cv2.resize(crop_double_prime,(1384,1384))
 
@@ -65,9 +65,9 @@ for n in range (1,15):
     list_circle_dia=np.trim_zeros(list_circle_dia)  
     list_circle_dia= filter(lambda a: a != 0.0, list_circle_dia)
     list_circle_dia = np.array(list_circle_dia)
-    np.savetxt(res_path+'list_circle'+`n`+'.csv', list_circle_dia)    
+    np.savetxt(res_path+'list_circle'+ n +'.csv', list_circle_dia)
     plt.imshow(gamma_prime)
-    plt.savefig(res_path+ 'gamma_prime'+`n`+'.png', dpi = 300)    
+    plt.savefig(res_path+ 'gamma_prime'+ n +'.png', dpi = 300)
     
     
     

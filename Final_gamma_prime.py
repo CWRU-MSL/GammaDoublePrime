@@ -20,7 +20,7 @@ from skimage.segmentation import clear_border
 
 
 
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png',as_gray=True)
 thresh = threshold_otsu(image)
 binary = image < thresh
 img_width = image.shape[0]
@@ -50,7 +50,7 @@ for n in  range (0,len(circle)):
 
 img2=cv2.drawContours(mask, list_circle, -1, (0,255,0), -1)
 
-img_gray=color.rgb2grey(img2)
+img_gray=color.rgb2gray(img2)
 binary= img_gray > 0.01
 binary=binary.astype(int)
 filled= ndimage.binary_fill_holes(binary)
@@ -78,4 +78,4 @@ plt.imshow(filled)
 
 np.save('GP_array.npy',filled)
 
-plt.savefig('img/718 images/111-Results-2/14/DGP.png', dpi = 300)
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)

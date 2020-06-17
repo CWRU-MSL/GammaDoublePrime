@@ -18,7 +18,7 @@ from shapely.geometry import Polygon
 import math
 from skimage.segmentation import clear_border
 
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png', as_gray=True)
 thresh = threshold_otsu(image)
 binary = image < thresh
 
@@ -50,7 +50,7 @@ for n in  range (0,len(ellipse)):
 
 img2=cv2.drawContours(mask, list_ellipse, -1, (0,255,0), -1)
 
-img_gray=color.rgb2grey(img2)
+img_gray=color.rgb2gray(img2)
 binary= img_gray > 0.01
 binary=binary.astype(int)
 
@@ -91,7 +91,7 @@ for n, contour in enumerate(contours):
                 max_dia=diag_2
                 min_dia=diag_1
         else:
-                print "Invalid object !"
+                print("Invalid object !")
         
         
         
@@ -99,7 +99,7 @@ for n, contour in enumerate(contours):
 
 
 list_ellipse=np.array(list_ellipse)
-np.savetxt("img/718 images/111-Results-2/14/ellipse_dia.csv", list_ellipse)
+np.savetxt("img/Results/ellipse_dia.csv", list_ellipse)
 #plt.plot(list_ellipse_area[:,1])
 
 ellipse_area_pixel= np.sum(filled == 1.0)
@@ -112,7 +112,7 @@ plt.imshow(cleared_filled)
 np.save('GDP_array.npy',filled)
 
 
-plt.savefig('img/718 images/111-Results-2/14/GDP.png', dpi = 300)
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)
 
 
 

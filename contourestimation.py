@@ -18,15 +18,38 @@ import scipy
 from skimage.morphology import square,dilation
 from bresenham import bresenham
 import random
-import normalize_easy as ne
+# import normalize_easy as ne
 from collections import defaultdict
 from skimage import morphology
 
+from sklearn.preprocessing import normalize
 
+def normr(Mat):
+    """Normalize the rows of the matrix so the L2 norm of each row is 1.
+    >>> A = rand(4, 4)
+    >>> B = normr(A)
+    >>> np.allclose(norm(B[0, :]), 1)
+    True
+    """
+    Mat = clean_and_check(Mat, nshape=2)
 
-seedpoints_final=np.load('seedpoints.npy').item()
+    B = normalize(Mat, norm='l2', axis=1)
+    return B
 
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+def clean_and_check(x, nshape=2):
+    """Make sure x is ready for computation; make it a dtype float and ensure it
+    has the right shape
+    """
+    assert len(x.shape) == nshape, 'This input array must be a {X}-D \
+    array'.format(X=nshape)
+
+    if x.dtype != np.float:
+        x = np.asarray(x, dtype=float)
+    return x
+
+seedpoints_final= np.load('seedpoints.npy', allow_pickle=True).item()
+
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png',as_gray=True)
 thresh = threshold_otsu(image)
 binary = image < thresh
 binary = morphology.remove_small_objects(binary, min_size=64, connectivity=2)
@@ -57,7 +80,7 @@ def smoothGradient(binary, sigma):
     sigma=2
     filterLength = 8*math.ceil(sigma)
     n = (filterLength - 1)/2
-    x = pl.frange(-n,n,1)
+    x = np.arange(-n,n,1)
     c = 1/(math.sqrt(2*math.pi)*sigma)
     gaussKernel = c * np.exp(-(x**2)/(2*sigma**2))
     
@@ -191,7 +214,7 @@ def  mia_cmpdistance(xysr, xyei, binary):
 #mia_cmpdivergence
 def mia_cmpdivergence(xysr, xyei, dy,dx):
     grad = [dx[xyei[0][0]][xyei[0][1]], dy[xyei[0][0]][xyei[0][1]]]
-    dvg  = np.absolute(np.sum(np.tile(grad, (len(xysr), 1)) * ne.normr(xyei-xysr), axis=1)/(np.linalg.norm(grad))) 
+    dvg  = np.absolute(np.sum(np.tile(grad, (len(xysr), 1)) * normr(xyei-xysr), axis=1)/(np.linalg.norm(grad)))
 
     return dvg
 #mia_cmprelevence
@@ -200,7 +223,7 @@ def mia_cmpdivergence(xysr, xyei, dy,dx):
   
 for i in range(0,len(seedpoints_final)):
     col=generate_new_color(colors)
-    print col
+    print(col)
     colors.append(col)
 col_edge=colors
 imgsz = binary.shape
@@ -254,7 +277,7 @@ for i in seedpoints_final:
     plt.plot(seedpoints_final[i]['ymc'],seedpoints_final[i]['xmc'],'.',color=col_edge[i])
     plt.plot(e2s[i]['ye'],e2s[i]['xe'],'.',color=col_edge[i])
 plt.show()
-plt.savefig('img/718 images/111-Results-2/14/C.png', dpi = 300)
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)
 #contourest = TemporaryFile()
 np.save('contourest.npy',e2s)
   

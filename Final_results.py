@@ -20,7 +20,7 @@ import math
 
 
 
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png',as_gray=True)
 thresh = threshold_otsu(image)
 binary = image < thresh
 img_width = image.shape[0]
@@ -69,7 +69,7 @@ for n, contour in enumerate(contours):
                 max_dia=diag_2
                 min_dia=diag_1
         else:
-                print "Invalid object !"
+                print("Invalid object !")
         
         list_circle.append([area,max_dia, min_dia])
 
@@ -81,8 +81,8 @@ circle_area_fraction = (float(circle_area_pixel) / float((img_width * img_height
 
 
 gamma_prime= gamma_prime.astype(float)
-gamma_prime = skimage.color.grey2rgb(gamma_prime, alpha=None)
-gamma_double = skimage.color.grey2rgb(gamma_double, alpha=None)
+gamma_prime = skimage.color.gray2rgb(gamma_prime, alpha=None)
+gamma_double = skimage.color.gray2rgb(gamma_double, alpha=None)
 
 
 
@@ -95,7 +95,7 @@ gamma_double[np.where((gamma_double == [1,1,1]).all(axis = 2))] = [0,1,0]
 final = gamma_prime+gamma_double
 
 plt.imshow(final)
-plt.savefig('img/718 images/111-Results-2/14/final.png', dpi = 300)
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)
 
 
 

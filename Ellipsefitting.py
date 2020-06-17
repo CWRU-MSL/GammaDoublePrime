@@ -16,9 +16,9 @@ from skimage.restoration import (denoise_tv_chambolle, denoise_bilateral,
 
 
 
-contourevidence=np.load('contourest.npy').item()
+contourevidence=np.load('contourest.npy', allow_pickle=True).item()
 
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png',as_gray=True)
 thresh = threshold_otsu(image)
 binary = image < thresh
 binary = binary.astype(int)
@@ -158,7 +158,7 @@ for i in range (0,len(contourevidence)):
      ye_i=contourevidence[i]['ye']
      
      if  len(xe_i) > 5:
-         print i
+         print(i)
          a = mia_fitellip_lsf(xe_i,ye_i)
          v = mia_solveellipse_lsf(a)
          if (len(a)!=0) and  (not any(np.isnan(a))):
@@ -202,7 +202,7 @@ img_width = image.shape[0]
 img_height = image.shape[1]
 plt.xlim(0,img_height,) 
 plt.ylim(img_width,0)    
-plt.show(x)
-plt.savefig('img/718 images/111-Results-2/14/E.png', dpi = 300)
+plt.show()
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)
 np.save('contours.npy',stats)
 

@@ -25,8 +25,8 @@ def frame_image(img, frame_width):
     return framed_img
 
 
-contours_m=np.load('contours.npy').item()
-image=io.imread('img/718 images/111-png/14.png',as_grey=True)
+contours_m=np.load('contours.npy', allow_pickle=True).item()
+image=io.imread('img/Z18/Q937_Z18_150kx_scancorr.png',as_gray=True)
 thresh = threshold_otsu(image)
 
 binary = image < thresh
@@ -78,7 +78,7 @@ for n in contours_m:
                 aspect_ratio = diag_2 / diag_1
                 max_dia=diag_2
             else:
-                print "Invalid object !"
+                print("Invalid object !")
 
             if aspect_ratio > 1.9:
                 if aspect_ratio <10:
@@ -107,7 +107,7 @@ for n in contours_m:
 #for n in list_ellipse:
 # if      
 
-plt.savefig('img/718 images/111-Results-2/14/CA.png', dpi = 300)
+plt.savefig('img/Results/Z18/Q937_Z18_150kx_scancorr.png', dpi = 300)
 list_ellipse_cnt=[]
 list_circle_cnt=[]
 for n in  range (0,len(list_ellipse)):
@@ -122,7 +122,7 @@ np.save('ellipse.npy',list_ellipse_cnt)
 np.save('circle.npy',list_circle_cnt)
 
 #np.savetxt("img/718 images/results/3 - test/ellipse_dia.csv", list_ellipse_dia)
-np.savetxt("img/718 images/111-Results-2/14/circle_dia.csv", list_circle_dia)
+np.savetxt("img/Results/circle_dia.csv", list_circle_dia)
 
 
        
