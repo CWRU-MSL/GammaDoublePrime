@@ -105,3 +105,11 @@ venv.bak/
 *.npy
 Final_results_out.txt
 img/*
+*.sif
+random-forest/images/*
+support-vector-machine/images/*
+*.jpg
+*.png
+*.*.jpg
+*/*.png
+
