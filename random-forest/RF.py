@@ -121,25 +121,32 @@ def feature_extraction(img):
 
 #features columns
 
-img= cv2.imread('images/input_unit8_448/1.png' ,0)
-# img2=cv2.imread('images/input_unit8_900/2.png' ,0)
-# img= np.concatenate((img1, img2), axis=0)
-df= feature_extraction(img)
+df1=pd.DataFrame()
+df2=pd.DataFrame()
+mask_df= pd.DataFrame()
+img_df= pd.DataFrame()
+final_df= pd.DataFrame()
 
-#label column
+for directory_path in glob.glob("path of images"):
+    for img_path in glob.glob(os.path.join(directory_path, "*.png")):
+        img = cv2.imread(img_path,0)
+        df1= feature_extraction(img)
+        img_df= img_df.append(df1)
 
-labeled_img = cv2.imread('images/label_mask_448/1.png' ,0)
-# labeled_img2 = cv2.imread('images/label_mask_900/2.png' ,0)
-# labeled_img = np.concatenate((labeled_img1, labeled_img2), axis=0)
-labeled_img = labeled_img.reshape(-1)
-df['Labels'] = labeled_img
+for directory_path in glob.glob("path of masks"):
+    for mask_path  in glob.glob(os.path.join(directory_path, "*.png")):
+        mask = cv2.imread(mask_path, 0)  
+        label_img = mask.reshape(-1)
+        df2['Label_Value'] = label_img
+        mask_df= mask_df.append(df2)
 
-print(df.head())
+final_df= pd.concat([img_df, mask_df], axis=1) 
+
+print(final_df.head())
 
 
-Y = df["Labels"].values  # Lables
-X=  df.drop(labels = ["Labels"], axis=1)  # Features
-
+Y = final_df["Label_Value"].values  # Lables
+X=  final_df.drop(labels = ["Label_Value"], axis=1)  # Features
 
 #spliting data
 
