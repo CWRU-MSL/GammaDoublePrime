@@ -112,13 +112,6 @@ def smoothGradient(binary, sigma):
     GY_smooth = scipy.ndimage.convolve(GY_smooth,derivGaussKernel.transpose(),mode='nearest')
     return GX_smooth, GY_smooth
 
-
-
-
-
-
-
-
 def mia_cmpedge(binary,verbose):
     gradmag = scharr(binary)
     thresh_gradmag = threshold_otsu(gradmag)
@@ -131,11 +124,6 @@ def mia_cmpedge(binary,verbose):
     [dx, dy] = smoothGradient(binary,2)
     return gradmag_thin, x, y,dx,dy
     
-
-
-
-
-  
 
 
 
@@ -167,10 +155,6 @@ if __name__ == '__main__':
     colors = []
 
   
-
-
-
-
 
 #Compare distance
 def  mia_cmpdistance(xysr, xyei, binary):
@@ -207,10 +191,6 @@ def  mia_cmpdistance(xysr, xyei, binary):
             distance = distance/ np.amax(distance_inf)  
 
     return distance
-
-
-
-
 
 #mia_cmpdivergence
 def mia_cmpdivergence(xysr, xyei, dy,dx):
