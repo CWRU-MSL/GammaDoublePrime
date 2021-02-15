@@ -91,24 +91,14 @@ for n in contours_m:
 
             else:
                 list_circles.append([contour_test, aspect_ratio, area])
-#                xsizes_min.append(min(contour_test[:, 0]))
- #               xsizes_max.append(max(contour_test[:, 0]))
-  #              ysizes_min.append(min(contour_test[:, 1]))
-   #             ysizes_max.append(max(contour_test[:, 1]))
+
                 if not(max(contour_test[:, 0]) >= img_width or max(contour_test[:, 1]) >= img_width or min(contour_test[:, 0]) <= 0 or min(contour_test[:, 1]) <= 0):
                     list_circle_dia.append([max_dia])
-                #if not(any(contour_test[:, 0])<= 0.0 or any(contour_test[:, 1])<= 0.0 or any(contour_test[:, 0])>= float(img_width) or any(contour_test[:, 1])>= float (img_width)  ) :
-                 #   list_circle_dia.append([max_dia])
-                    
-                # print "{n}  aspect ratio: {ap}, area: {area}, circle".format(n=n, ap=aspect_ratio, area=area)
+)
                 ax.plot(contour_test[:, 1], contour_test[:, 0], linewidth=2, color='blue')
                 
                 
                 
-#for n in list_ellipse:
-# if      
-
-#plt.savefig(RESULT_PATH + '04-Calculate_area.png', dpi = 300)
 list_ellipse_cnt=[]
 list_circle_cnt=[]
 for n in  range (0,len(list_ellipse)):
