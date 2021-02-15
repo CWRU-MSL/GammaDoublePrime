@@ -55,9 +55,6 @@ def frame_image(img, frame_width):
     framed_img[b:-b, b:-b] = img
     return framed_img
 
-
-#
-#
 binary = frame_image(binary, 15)
 # assiging varibales
 radii = list(range(8, 9))
